@@ -42,14 +42,20 @@ function createStore(reducer, initialState) {
   //store.dispatch({ type: "DECREMENT" });
   
   
-  Bangle.on("tap", () => {
-    store.dispatch({ type: "INCREMENT" });
+function redrawScreen() {
     g.reset().clearRect(Bangle.appRect);
     g.setFont("12x20").setFontAlign(0,0);
     g.drawString("Redux Inc", 80, 70);
     g.setFont("Vector:40");
     g.drawString(store.getState(), 80,105);
-  });
-  
-  Bangle.loadWidgets();
-  Bangle.drawWidgets();
+}
+
+redrawScreen()
+Bangle.on("tap", (options) => {
+  if(options.double) {
+    store.dispatch({ type: "INCREMENT" });
+  }
+});
+ 
+Bangle.loadWidgets();
+Bangle.drawWidgets();

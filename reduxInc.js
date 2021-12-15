@@ -20,7 +20,7 @@ function createStore(reducer, initialState) {
       subscribe: subscribe
     };
   }
-  
+
   function counter(state, action) {
     const stateInitialized = isNaN(state)?0:state;
     switch (action.type) {
@@ -33,7 +33,7 @@ function createStore(reducer, initialState) {
     }
   }
   
-  const store = createStore(counter);
+  const store = createStore(counter,0);
   
   store.subscribe(() => console.log(store.getState()));
   
@@ -41,7 +41,7 @@ function createStore(reducer, initialState) {
   //store.dispatch({ type: "INCREMENT" });
   //store.dispatch({ type: "DECREMENT" });
   
-  
+ 
 function redrawScreen() {
     g.reset().clearRect(Bangle.appRect);
     g.setFont("12x20").setFontAlign(0,0);
@@ -50,10 +50,11 @@ function redrawScreen() {
     g.drawString(store.getState(), 80,105);
 }
 
-redrawScreen()
+redrawScreen();
 Bangle.on("tap", (options) => {
   if(options.double) {
     store.dispatch({ type: "INCREMENT" });
+    redrawScreen();
   }
 });
  
